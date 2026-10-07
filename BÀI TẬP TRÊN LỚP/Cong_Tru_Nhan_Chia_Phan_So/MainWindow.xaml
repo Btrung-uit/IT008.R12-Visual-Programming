@@ -1,0 +1,71 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Margin="20,30,20,30">
+        <!-- 1. KHAI BÁO CÁC HÀNG -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- Hàng 0: Nhập số 1 -->
+            <RowDefinition Height="*"/>
+            <!-- Hàng 1: Nhập số 2 -->
+            <RowDefinition Height="*"/>
+            <!-- Hàng 2: Hàng nút bấm -->
+            <RowDefinition Height="*"/>
+            <!-- Hàng 3: Kết quả -->
+        </Grid.RowDefinitions>
+        <!-- 2. KHAI BÁO CÁC CỘT -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- HÀNG 0 -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Số 1:" VerticalAlignment="Center" FontSize="18"/>
+        <!-- tbSo1 chiếm từ cột 1 và gộp 3 cột lại (ColumnSpan=3) -->
+        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" x:Name="tbSo1" Margin="5" Height="35" FontSize="18"/>
+        <!-- HÀNG 1 -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Số 2:" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" x:Name="tbSo2" Margin="5" Height="35" FontSize="18"/>
+        <!-- HÀNG 2: MỖI NÚT 1 CỘT -->
+        <Button Grid.Row="2" Grid.Column="1" x:Name="btnCong" Content="Cộng" Margin="5" Height="40" Click="btnCong_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="2" x:Name="btnTru" Content="Trừ" Margin="5" Height="40" Click="btnTru_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="3" x:Name="btnNhan" Content="Nhân" Margin="5" Height="40" Click="btnNhan_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="4" x:Name="btnChia" Content="Chia" Margin="5" Height="40" Click="btnChia_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+        </Button.Resources>
+        </Button>
+        <!-- HÀNG 3: KẾT QUẢ GỘP TOÀN BỘ 4 CỘT -->
+        <TextBlock Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" x:Name="tblKetQua" 
+               Text="Kết quả: " Margin="5,15,0,0" FontSize="18" Foreground="Black" FontWeight="Bold"/>
+    </Grid>
+</Window>
