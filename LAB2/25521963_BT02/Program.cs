@@ -1,4 +1,4 @@
-namespace _25521963_BT01
+namespace _25521963_BT02
 {
 	internal static class Program
 	{

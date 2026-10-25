@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace _25521963_BT01
+namespace _25521963_BT02
 {
 	public partial class DangNhapForm : Form
 	{

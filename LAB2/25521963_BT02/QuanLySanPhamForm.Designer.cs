@@ -1,4 +1,4 @@
-﻿namespace _25521963_BT01
+namespace _25521963_BT02
 {
 	partial class QuanLySanPhamForm
 	{
@@ -272,7 +272,7 @@
 			Controls.Add(label2);
 			Controls.Add(label1);
 			Name = "QuanLySanPhamForm";
-			Text = "QuanLySanPhamForm";
+			Text = "Quản lý sản phẩm";
 			Load += QuanLySanPhamForm_Load;
 			((System.ComponentModel.ISupportInitialize)dgvSanPham).EndInit();
 			ResumeLayout(false);

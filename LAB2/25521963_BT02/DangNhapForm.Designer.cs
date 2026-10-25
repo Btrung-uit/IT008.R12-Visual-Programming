@@ -1,4 +1,4 @@
-﻿namespace _25521963_BT01
+namespace _25521963_BT02
 {
 	partial class DangNhapForm
 	{
@@ -100,7 +100,7 @@
 			btnHuy.UseVisualStyleBackColor = true;
 			btnHuy.Click += btnHuy_Click;
 			// 
-			// Form1
+			// DangNhapForm
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
@@ -112,8 +112,8 @@
 			Controls.Add(tbTenDangNhap);
 			Controls.Add(label1);
 			Controls.Add(lbDangNhap);
-			Name = "Form1";
-			Text = "Form1";
+			Name = "DangNhapForm";
+			Text = "Đăng nhập";
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -129,3 +129,4 @@
 		private Button btnHuy;
 	}
 }
+
