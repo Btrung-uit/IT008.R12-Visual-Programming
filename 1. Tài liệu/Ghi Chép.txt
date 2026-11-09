@@ -1,0 +1,211 @@
+Lập trình 1 ứng dụng có giao diện đồ họa vừa dùng
+dùng C# làm ngôn ngữ chính
+GUI
+C# Winform (Đồ án làm cái này)
+Vấn đáp đồ án cuối kỳ - Xây dựng sản phẩm hòa thiện có giao diện đồ họa, làm theo nhóm 4 người, đề tài sẽ trao đổi sau, 1 ứng dụng hoàn thiện người dùng dùng trực tiếp được
+Về đánh giá về: Đứng ở góc đồ người dùng nhìn vào sp đánh giá về mảng UI/UX, bố cục có phù hợp với nghiệp vụ của sp đó hay không? Có chỉ chu hay không? Không quá màu mè, ít nhất nó phải có cấu trúc, text box ngay hàng thẳng lối, tính năng phải đúng với bài toán của mình
+Đứng dưới góc độ của lập trình viên cách các bạn triển khai tính năng đó, sp đó, biết dùng đúng thành phần, input output đúng, idea về thuật toán kiến trúc hệ thống hay là 1 điểm cộng (tối đa 10), cbi source code lưu trên github, trong giai đoạn báo cáo phải để chế độ public, hạn chế lưu thông tin nhạy cảm như API, có file readme mô tả đồ án, hướng dẫn cài đặt từ source code.
+Đứng ở góc độ đóng góp cho sp trong nhóm, lịch trình làm việc lưu trữ trong github (commit), bạn này bạn kia làm bao nhiêu %, không nhờ bạn bè commit, đồng thời buổi báo cáo thầy sẽ hỏi, viết report, viết 1 cái báo cáo trong đó giới thiệt về bài tóa, mục tiêu , đối tương khách hàng , giải quyết bài toán gì, kiến trúc hệ thống tổng thể, csdl là gì, sơ đồ, mô tả hệ thống gòm bao nhiêu màn hình (screen shot), trnog đó 1 số thuật toán hay sẽ ghi vào
+có 1 slide hỗ trợ trong quá trình báo cáo (5-6 slide)
+Thi thực hành tại phòng máy
+Kiểm tra trên lớp bài tập
+Thi lý thuyết giữa kỳ
+Có 1 số buổi điểm danh, phát biểu trên lớp để lấy điểm quá trình
+
+25-9
+Interface là rằng buộc, giao ước đảm bảo cho các lớp hay các cấu trúc sẽ thực hiện một điều gì đó.
+Khi một lớp thực thi một giao diện, thì lớp này báo cho các thành phần clinet biết rằng lớp này có hỗ trợ các phương thức, thuộc tính, sự kiện và các chỉ mục khai báo trong giao diện.
+Giao diện chính là phần đặc tả (không bao hàm phần cài đặt cụ thể nội dung) của 1 lớp.
+Một lớp đối tương jcso thẻ đưa ra cùng lúc nhiều giao diện để các chương trình bên ngoài truy xuất.
+Cú pháp đê định nhĩa một giao diện:
+[thuộc tính] [bổ từ truy cập] interface <tên giao diện> [:danh sách cơ sở]
+{
+	<phần thân giao diện>
+}
+
+Một giao diện thì không có Constructor
+Một giao diện thì không cho phép chứa các phương thức nạp chồng.
+Nó cũng không cho phép kgai báo nữn bổ từ trên các thành phần trong khi định nghĩa một giao diện.
+Các thành phần bên trong một giao diện luôn luôn là public và không thể khai báo virtual hay static.
+Sự kế thừa interface phải đặt sau sự kế thừa lớp
+
+Interface vs Abstract
+Một class chỉ được thừa kế từ một lớp cơ sở.
+Nhưng được phép implement (Cài đặt, hiện thực hóa) nhiều loại interface khác nhau.
+pulic class ToyotâCr: Car, Imovable, IUsePower
+{
+	...
+}
+public class Student: People, IMovable, IBreathable
+{
+	...
+}
+Ngày xưa viết một cái hàm mình hay return về 1 trạng thái 0, 1, 2, 3,...
+Sau này người ta dùng Exeption
+Exption
+Exeption - Ngoại lệ là cơ thế thông báo và ử lý lỗi gảii quyết được các vấn đề kể tên
+Xử lý lỗi goại lệ
+C# cho phép xử lý những lỗi và các điều kiện không bình htường với những ngoại lệ.
+Ngoại lệ là một đói trượng đóng gói những thông tin về sự có của một chương trình không bìn thườn
+Khi một chương trình gặp một tình huống ngoại lệ -> Tạo ra một ngoại lệ. Khi một ngoại lệ được tạo ra, việc thực thi của các chức năng hiện hành sẽ bị treo cho đến khi nà việc xử lý ngoại lệ tương ứng được tìm thấy
+Một trình xử lý ngoại lệ là một khối lệnh mà chương trình phát sinh
+
+Phát biểu throw
+Phát biểu throw dùng để phát ra tính hiêu của sự cố bất thường trong khi chương trình thực thi với cú pháp:
+throw [exeption];
+Câu lệnh ném ngoại lệ gồm 2 phần
+- Từ khóa throw
+- Đối tượng được ném
+Ví dụ:
+throw new System.ArgumentOutOfRangeExeption("Bad month");
+
+Phát biểu try catch
+Tỏng C#, trong một trình xử lý noại lệ hay một đoạn chương trình xử lý các ngoại lệ được gọi là một khối catch và được tạo ra với từ khoa catch
+Ví dụ: Câu lệnh throw được thực thi bên trong khối try, và một khối catch được sử dụng để công bố rằng một lỗi đã được xử lý
+
+Cú pháp
+try
+{
+	// Code có khả năng phát sinh ngoại lệ
+}
+catch (Exeption)
+{
+	// Code xử lý lỗi
+}
+Ví dụ
+using System;
+class Test
+{
+	static void Main(stirng[] args)
+	{
+		Test t = new Test();
+		t.TestFunc();
+	}
+	public double DoDivide(double a, double b)
+	{
+		if(b == 0)
+		{
+			throw new System.DivideByZeroException();
+		}
+		if(a == 0)
+		{
+			throw new System.ArithmeticExeption();
+		}
+		return a / b;
+	}
+	public void TestFunc()
+	{
+		try
+		{
+			double a = 5, b = 0;
+			Console.WriteLine("{0} / {1} + {2}", a, b, DiDivide(a, b));
+		}
+		catch(System.DivideByZeroException)
+		{
+			Console.WriteLine(:DivideBZeroException caught!");
+		}
+		catch (System.ArithmeticException)
+		{
+			Console.WriteLine("ArithmeticException caught!");
+		}
+		catch
+		{
+			Console.WriteLine("Unknown exception caught!");
+		}
+	}
+}
+
+Câu lệnh finally
+Đoạn chương trình bên trong khối finally được đảnh bảo thực thi mà không quan tâm đến việc khi nào thì một ngoại lệ được phát sinh
+try
+	try-block
+catch
+	catch-block
+finaly
+	finally-block
+
+Dynamic Binding
+Với dynamic binding, khi nhận được một dối tượng, chúng ta không cần phải quan tâm đến kiểu của đối tượng đó. Môi trường thực thi sẽ quyết định phương thức hay phép toán nào sẽ áp dụng cho đối tượng nào. Điều này tạo tạo sự linh hoạt và đơn giản khi code
+Ví dụ
+using System;
+class Persom
+{
+	public string Name {get; set; }
+	public void Swim()
+	{
+		Console.WriteLine("Person is swimming");
+	}
+}
+class Duck
+{
+	phulic string Weight {get; set; }
+	public void Swim()
+	{
+		Console.WriteLine("The duck is swimming");
+	}
+}
+class Program
+{
+	static void ImvokeSwim(dynamic obj)
+	{
+		obj.Swim();
+	}
+}
+static void Main(string []args)
+{
+	dynamic person = new Person();
+	dynamic duck = new Duck();
+	InvokeSwim(person);
+	InvokeSwim(duck);
+}
+
+Delegates
+Tương tự như ta xây dựng phương thức sắp xếp trong C++
+- Khi có input hàm sắp xếp sẽ sử dụng con trỏ hàm để gọi đến hàm compare để thực hiện sort các input
+Về mặt bản chất Delegate là một lớp, nó có khởi tạo đối tượng và các thao tác giống như một đối tương.
+Về mặt ý nghĩa Delegate giống như khái niệm con trỏ hàm trong C/C++
+Một delegate được khởi tạo bằng từ khóa delegate, sau đó đến kiểu trả về, tên deletgate và cấc tham số mà delegate đó nhận vào.
+Ví dụ:
+using System;
+delegate void MethodDelegate();
+class Person
+{
+	public void Hello()
+	{
+		COnsole.WriteLine("Hello Delegate");
+	}
+}
+class Program
+{
+	static void Main(string []args)
+	{
+		Person person = new Person();
+		MethodDelegate helloDelegate = new MethodDelegate(person.Hello);
+		helloDelegate();
+	}
+}
+
+Multicast delegate
+void Print(int x, int y) { 
+Console.WriteLine(“x = {0}, y = {1}”, x, y); 
+} 
+void Sum(int x, int y) { 
+Console.WriteLine(“Tong = {0}”, x+y); 
+} 
+MyDelegate1 mulDel = new MyDelegate1(Print); 
+mulDel += new MyDelegate1(Sum); 
+mulDel(5, 10);  
+mulDel -= new MyDelegate1(Print); 
+mulDel(5,10); 
+
+
+Event
+Trong môi trường giao diện đồ họa, đòi hỏi chương trình phải đáp ứng các sự kiện
+- Sự kiện là một ành động nào đó xảy ra và ta phải đáp ứng lại sự kiện đó
+
+Publishing & Subcrising
+Một lớp có publish một tập các event cho phép các lớp khác subcribe
+- Button là lớp publish đưa ra event: click
+- Form là lớp subscribe có phần xử lý riêng khi "click" của button kích hoạt
+
+Event và Delegate
