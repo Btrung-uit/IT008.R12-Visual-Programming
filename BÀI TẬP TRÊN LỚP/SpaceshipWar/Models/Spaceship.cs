@@ -11,6 +11,7 @@ public class Spaceship : GameObject
 	public bool MoveRight {get; set; }
 	public bool MoveUp {get; set; }
 	public bool MoveDown {get; set; }
+	public bool IsAlive => Hp > 0;
 
 	public Spaceship(float x, float y, float size, Image img) : base(x, y, size, size)
 	{
@@ -23,6 +24,14 @@ public class Spaceship : GameObject
 		if(MoveRight) X += Speed;
 		if(MoveUp) Y -= Speed;
 		if(MoveDown) Y += Speed;
+	}
+
+	public void StopMoving()
+	{
+		MoveLeft = false;
+		MoveRight = false;
+		MoveUp = false;
+		MoveDown = false;
 	}
 
 	// Giữ tàu không bay ra khỏi màn hình

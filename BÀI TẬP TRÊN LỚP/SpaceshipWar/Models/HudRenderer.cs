@@ -12,20 +12,36 @@ public class HudRenderer : IDisposable
 		this.screenSize = screenSize;
 	}
 
-	public void DrawHUD(Graphics g, Spaceship player, int score)
+	public void DrawPlayers(Graphics g, Spaceship player1, Spaceship player2)
 	{
-		// 1. HP
-		string hpText = $"HP: {player.Hp}";
-		g.DrawString(hpText, generalFont, Brushes.Black, 271, 11);
-		g.DrawString(hpText, generalFont, Brushes.White, 270, 10);
-		// 2. Rocket
-		string rocketText = $"Rocket: {player.RocketLeft}";
-		g.DrawString(rocketText, generalFont, Brushes.Black, 271, 31);
-		g.DrawString(rocketText, generalFont, Brushes.Yellow, 270, 30);
-		// 3. Score
+		if (player1.IsAlive) player1.Draw(g);
+		if (player2.IsAlive) player2.Draw(g);
+
+		if (player1.IsAlive)
+		{
+			DrawText(g, "P1", Brushes.Cyan, player1.X, Math.Max(0, player1.Y - generalFont.Height));
+		}
+		if (player2.IsAlive)
+		{
+			float labelX = player2.Bounds.Right - g.MeasureString("P2", generalFont).Width;
+			DrawText(g, "P2", Brushes.Yellow, labelX, Math.Max(0, player2.Y - generalFont.Height));
+		}
+	}
+
+	public void DrawHUD(Graphics g, Spaceship player1, Spaceship player2, int score)
+	{
+		string p1Text = $"P1  HP: {player1.Hp}\nRocket: {player1.RocketLeft}";
+		string p2Text = $"P2  HP: {player2.Hp}\nRocket: {player2.RocketLeft}";
 		string pointText = $"Point: {score}";
-		g.DrawString(pointText, generalFont, Brushes.Black, 271, 51);
-		g.DrawString(pointText, generalFont, Brushes.Cyan, 270, 50);
+		DrawText(g, p1Text, Brushes.Cyan, 10, 10);
+		DrawText(g, p2Text, Brushes.Yellow, screenSize.Width - g.MeasureString(p2Text, generalFont).Width - 10, 10);
+		DrawText(g, pointText, Brushes.White, (screenSize.Width - g.MeasureString(pointText, generalFont).Width) / 2, 10);
+	}
+
+	private void DrawText(Graphics g, string text, Brush color, float x, float y)
+	{
+		g.DrawString(text, generalFont, Brushes.Black, x + 1, y + 1);
+		g.DrawString(text, generalFont, color, x, y);
 	}
 
 	public void DrawGameOver(Graphics g)
@@ -52,6 +68,7 @@ public class HudRenderer : IDisposable
 	}
 	public void Dispose()
 	{
+		generalFont.Dispose();
 		gameOverFont.Dispose();
 		restartFont.Dispose();
 	}

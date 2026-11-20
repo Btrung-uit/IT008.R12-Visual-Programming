@@ -18,7 +18,8 @@ public class GameManager : IDisposable
 	private readonly Spawner spawner;
 
 	// Các thực thể
-	public Spaceship Player { get; private set; }
+	public Spaceship Player1 { get; private set; }
+	public Spaceship Player2 { get; private set; }
 	public List<Meteor> Meteors { get; } = new();
 	public List<Rocket> Rockets { get; } = new();
 	public List<Explosion> Explosions { get; } = new();
@@ -33,10 +34,10 @@ public class GameManager : IDisposable
 	public const int RocketHeight = 35;
 	public const int ExplosionSize = 40;
 
-	// Kiểm tra nếu HP <= thì Game Over
-	public bool IsGameOver => Player.Hp <= 0;
+	public bool IsGameOver => !Player1.IsAlive && !Player2.IsAlive;
 
 
+	// Constructor
 	public GameManager(Size clientSize)
 	{
 		screenSize = clientSize;
@@ -55,9 +56,8 @@ public class GameManager : IDisposable
 		spawner = new Spawner(screenSize, meteorImage, rocketRefillImage, heartImage);
 
 		// Khởi tạo tàu
-		float startX = (screenSize.Width - SpaceshipSize) / 2f;
-		float startY = screenSize.Height - SpaceshipSize - 10;
-		Player = new Spaceship(startX, startY, SpaceshipSize, spaceshipImage);
+		Player1 = CreatePlayer(screenSize.Width / 4f);
+		Player2 = CreatePlayer(screenSize.Width * 3 / 4f);
 
 		// Nạp âm thanh
 		SoundManager.Load("bgm.mp3", "bgm");
@@ -75,27 +75,34 @@ public class GameManager : IDisposable
 		SoundManager.Play("bgm", loop: true);
 	}
 
-	// Hàm bắn rocket
-	public void FireRocket()
+	// Tạo người chơi
+	private Spaceship CreatePlayer(float centerX)
 	{
-		if (IsGameOver) return; // Game Over thì không cho bắn
+		float startY = screenSize.Height - SpaceshipSize - 10;
+		return new Spaceship(centerX - SpaceshipSize / 2f, startY, SpaceshipSize, spaceshipImage);
+	}
 
-		float startX = Player.X + Player.Width / 2f;
-		
-		float startY = Player.Y;
+	// Hàm bắn rocket
+	public void FireRocket(Spaceship player)
+	{
+		if (!player.IsAlive) return;
+
+		float startX = player.X + player.Width / 2f;
 		// Kiểm tra xem có còn rocket không, nếu hết thì không cho bắn
-		if (Player.RocketLeft <= 0)
+		if (player.RocketLeft <= 0)
 		{
 			// phát âm thanh hết đạn
 			SoundManager.Play("no_rocket");
 			return;
 		}
-		Player.RocketLeft--;
-		Rockets.Add(new Rocket(startX, startY, RocketWidth, RocketHeight, 0, -10, rocketImage));
+		player.RocketLeft--;
+		Rockets.Add(new Rocket(startX, player.Y, RocketWidth, RocketHeight, 0, -10, rocketImage));
 
 		// Phát tiếng bắn đạn
 		SoundManager.Play("laser");
 	}
+	
+	// Cập nhật các thực thể
 	public void Update()
 	{
 		if (IsGameOver) return; // Dừng toàn bộ logic khi thua
@@ -121,8 +128,8 @@ public class GameManager : IDisposable
 	// Cập nhật các vật thể
 	private void UpdateEntity()
 	{
-		Player.Update();
-		Player.ClampToBounds(screenSize.Width, screenSize.Height);
+		UpdatePlayer(Player1);
+		UpdatePlayer(Player2);
 		Meteors.ForEach(m => m.Update());
 		Rockets.ForEach(r => r.Update());
 		Explosions.ForEach(e => e.Update());
@@ -130,21 +137,40 @@ public class GameManager : IDisposable
 		Hearts.ForEach(h => h.Update());
 	}
 
+	// Cập nhật player
+	private void UpdatePlayer(Spaceship player)
+	{
+		if (!player.IsAlive) return;
+
+		player.Update();
+		player.ClampToBounds(screenSize.Width, screenSize.Height);
+	}
+
 	// Kiểm tra va chạm
 	private void CheckCollisions()
 	{
-		CheckPlayerCollision();
+		CheckPlayerCollision(Player1);
+		CheckPlayerCollision(Player2);
 		CheckRocketCollision();
+
+		if (IsGameOver)
+		{
+			SoundManager.Stop("bgm");
+			SoundManager.Play("game_over");
+			SoundManager.Play("falling_gameover");
+		}
 	}
-	private void CheckPlayerCollision()
+	private void CheckPlayerCollision(Spaceship player)
 	{
+		if (!player.IsAlive) return;
+
 		// Va chạm giữa Player và Meteor
 		for (int i = Meteors.Count - 1; i >= 0; i--)
 		{
-			if (Player.Bounds.IntersectsWith(Meteors[i].Bounds))
+			if (player.Bounds.IntersectsWith(Meteors[i].Bounds))
 			{
-				Player.Hp = Math.Max(0, Player.Hp - 1);
-				RectangleF collision = RectangleF.Intersect(Player.Bounds, Meteors[i].Bounds);
+				player.Hp--;
+				RectangleF collision = RectangleF.Intersect(player.Bounds, Meteors[i].Bounds);
 				Explosions.Add(new Explosion(collision.Left + collision.Width / 2f - ExplosionSize / 2f,
 											 collision.Top + collision.Height / 2f - ExplosionSize / 2f,
 											 ExplosionSize, explosionImage));
@@ -152,23 +178,16 @@ public class GameManager : IDisposable
 
 				// Phát âm thanh tàu bị tông
 				SoundManager.Play("crash");
-				// Nếu hết máu thì phát âm thanh GameOver
-				if (IsGameOver)
-				{
-					SoundManager.Stop("bgm");       // Tắt nhạc nền
-					SoundManager.Play("game_over");  // Bật nhạc thua
-					SoundManager.Play("falling_gameover");
-				}
+				if (!player.IsAlive) return;
 			}
 		}
 		// Va chạm giữa Player và RocketRefill
 		for (int i = RocketRefills.Count - 1; i >= 0; i--)
 		{
-			if (Player.Bounds.IntersectsWith(RocketRefills[i].Bounds))
+			if (player.Bounds.IntersectsWith(RocketRefills[i].Bounds))
 			{
 				// Mỗi lần nhặt được RocketRefill thì + 10 rocket
-				Player.RocketLeft += 10;
-				RectangleF collision = RectangleF.Intersect(Player.Bounds, RocketRefills[i].Bounds);
+				player.RocketLeft += 20;
 				RocketRefills.RemoveAt(i);
 
 				// Phát âm thanh get point
@@ -178,11 +197,10 @@ public class GameManager : IDisposable
 		// Va chạm giữa Player và Heart
 		for (int i = Hearts.Count - 1; i >= 0; i--)
 		{
-			if (Player.Bounds.IntersectsWith(Hearts[i].Bounds))
+			if (player.Bounds.IntersectsWith(Hearts[i].Bounds))
 			{
 				// Mỗi lần nhặt được Heart thì + 1 heart
-				Player.Hp += 1;
-				RectangleF collision = RectangleF.Intersect(Player.Bounds, Hearts[i].Bounds);
+				player.Hp += 1;
 				Hearts.RemoveAt(i);
 
 				// Phát âm thanh get point
@@ -211,6 +229,7 @@ public class GameManager : IDisposable
 			}
 		}
 	}
+
 	// Chơi lại
 	public void Restart()
 	{
@@ -222,17 +241,8 @@ public class GameManager : IDisposable
 		Explosions.Clear();
 		RocketRefills.Clear();
 		Hearts.Clear();
-		// Reset lại vị trí và máu của tàu
-		float startX = (screenSize.Width - SpaceshipSize) / 2f;
-		float startY = screenSize.Height - SpaceshipSize - 10;
-		Player.X = startX;
-		Player.Y = startY;
-		Player.Hp = 10;
-		Player.RocketLeft = 30;
-		Player.MoveLeft = false;
-		Player.MoveRight = false;
-		Player.MoveUp = false;
-		Player.MoveDown = false;
+		Player1 = CreatePlayer(screenSize.Width / 4f);
+		Player2 = CreatePlayer(screenSize.Width * 3 / 4f);
 
 		// Dừng các âm thanh gameover và phát nhạc nền lại
 		SoundManager.Stop("game_over");
@@ -246,9 +256,9 @@ public class GameManager : IDisposable
 		Rockets.ForEach(r => r.Draw(g));
 		RocketRefills.ForEach(r => r.Draw(g));
 		Hearts.ForEach(h => h.Draw(g));
-		Player.Draw(g);
+		hudRenderer.DrawPlayers(g, Player1, Player2);
 		Explosions.ForEach(e => e.Draw(g));
-		hudRenderer.DrawHUD(g, Player, Score);
+		hudRenderer.DrawHUD(g, Player1, Player2, Score);
 
 		if (IsGameOver)
 		{
@@ -276,4 +286,5 @@ public class GameManager : IDisposable
 		SoundManager.Close("falling_gameover");
 		SoundManager.Close("heart_recharge");
 	}
+
 }

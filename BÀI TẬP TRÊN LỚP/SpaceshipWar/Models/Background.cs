@@ -7,12 +7,14 @@ public class Background : IDisposable
 	private float y = 0f;
 	public float Speed {get; set; } = 2.5f;
 
+	// Constructor
 	public Background(Size screenSize, string imagePath)
 	{
 		this.screenSize = screenSize;
 		image = Image.FromFile(imagePath);
 	}
 
+	// Cập nhật cho background tạo cảm giác player đang bay lên
 	public void Update()
 	{
 		y += Speed;
