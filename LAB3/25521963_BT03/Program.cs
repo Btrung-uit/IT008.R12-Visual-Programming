@@ -11,7 +11,7 @@ namespace _25521963_BT03
 			// To customize application configuration such as set high DPI settings or default font,
 			// see https://aka.ms/applicationconfiguration.
 			ApplicationConfiguration.Initialize();
-			Application.Run(new DangNhapForm());
+			Application.Run(new QuanLySanPhamForm());
 		}
 	}
 }

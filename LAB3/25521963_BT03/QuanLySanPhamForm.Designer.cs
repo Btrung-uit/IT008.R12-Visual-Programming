@@ -45,24 +45,6 @@ namespace _25521963_BT03
 			dgvSanPham = new DataGridView();
 			MaSanPham = new DataGridViewTextBoxColumn();
 			TenSanPham = new DataGridViewTextBoxColumn();
-			SoLuong = new DataGridViewTextBoxColumn();
-			DonGia = new DataGridViewTextBoxColumn();
-			DonViTinh = new DataGridViewTextBoxColumn();
-			label6 = new Label();
-			cbbDonViTinh = new ComboBox();
-			((System.ComponentModel.ISupportInitialize)dgvSanPham).BeginInit();
-			SuspendLayout();
-			// 
-			// label1
-			// 
-			label1.AutoSize = true;
-			label1.Font = new Font("Segoe UI", 16F);
-			label1.Location = new Point(258, 43);
-			label1.Name = "label1";
-			label1.Size = new Size(266, 37);
-			label1.TabIndex = 0;
-			label1.Text = "QUẢN LÝ SẢN PHẨM";
-			// 
 			// label2
 			// 
 			label2.AutoSize = true;
@@ -187,6 +169,7 @@ namespace _25521963_BT03
 			dgvSanPham.Name = "dgvSanPham";
 			dgvSanPham.ReadOnly = true;
 			dgvSanPham.RowHeadersWidth = 51;
+			dgvSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			dgvSanPham.Size = new Size(776, 383);
 			dgvSanPham.TabIndex = 14;
 			dgvSanPham.CellClick += dgvSanPham_CellClick;
