@@ -45,6 +45,18 @@ namespace _25521963_BT03
 			dgvSanPham = new DataGridView();
 			MaSanPham = new DataGridViewTextBoxColumn();
 			TenSanPham = new DataGridViewTextBoxColumn();
+			label7 = new Label();
+			cbbDonViTinh = new ComboBox();
+			((System.ComponentModel.ISupportInitialize)dgvSanPham).BeginInit();
+			SuspendLayout();
+			// 
+			// label1
+			// 
+			label1.Location = new Point(0, 0);
+			label1.Name = "label1";
+			label1.Size = new Size(100, 23);
+			label1.TabIndex = 15;
+			// 
 			// label2
 			// 
 			label2.AutoSize = true;
@@ -146,7 +158,6 @@ namespace _25521963_BT03
 			btnSua.TabIndex = 12;
 			btnSua.Text = "Sửa";
 			btnSua.UseVisualStyleBackColor = true;
-			btnSua.Click += btnSua_Click;
 			// 
 			// btnTimKiem
 			// 
@@ -156,7 +167,6 @@ namespace _25521963_BT03
 			btnTimKiem.TabIndex = 13;
 			btnTimKiem.Text = "Tìm kiếm";
 			btnTimKiem.UseVisualStyleBackColor = true;
-			btnTimKiem.Click += btnTimKiem_Click;
 			// 
 			// dgvSanPham
 			// 
@@ -164,7 +174,7 @@ namespace _25521963_BT03
 			dgvSanPham.AllowUserToDeleteRows = false;
 			dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dgvSanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dgvSanPham.Columns.AddRange(new DataGridViewColumn[] { MaSanPham, TenSanPham, SoLuong, DonGia, DonViTinh });
+			dgvSanPham.Columns.AddRange(new DataGridViewColumn[] { MaSanPham, TenSanPham });
 			dgvSanPham.Location = new Point(12, 243);
 			dgvSanPham.Name = "dgvSanPham";
 			dgvSanPham.ReadOnly = true;
@@ -173,7 +183,6 @@ namespace _25521963_BT03
 			dgvSanPham.Size = new Size(776, 383);
 			dgvSanPham.TabIndex = 14;
 			dgvSanPham.CellClick += dgvSanPham_CellClick;
-			dgvSanPham.CellContentClick += dgvSanPham_CellClick;
 			// 
 			// MaSanPham
 			// 
@@ -191,46 +200,22 @@ namespace _25521963_BT03
 			TenSanPham.Name = "TenSanPham";
 			TenSanPham.ReadOnly = true;
 			// 
-			// SoLuong
+			// label7
 			// 
-			SoLuong.DataPropertyName = "SoLuong";
-			SoLuong.HeaderText = "Số Lượng";
-			SoLuong.MinimumWidth = 6;
-			SoLuong.Name = "SoLuong";
-			SoLuong.ReadOnly = true;
-			// 
-			// DonGia
-			// 
-			DonGia.DataPropertyName = "DonGia";
-			DonGia.HeaderText = "Đơn Giá";
-			DonGia.MinimumWidth = 6;
-			DonGia.Name = "DonGia";
-			DonGia.ReadOnly = true;
-			// 
-			// DonViTinh
-			// 
-			DonViTinh.DataPropertyName = "DonViTinh";
-			DonViTinh.HeaderText = "Đơn Vị Tính";
-			DonViTinh.MinimumWidth = 6;
-			DonViTinh.Name = "DonViTinh";
-			DonViTinh.ReadOnly = true;
-			// 
-			// label6
-			// 
-			label6.AutoSize = true;
-			label6.Location = new Point(12, 175);
-			label6.Name = "label6";
-			label6.Size = new Size(86, 20);
-			label6.TabIndex = 15;
-			label6.Text = "Đơn Vị Tính";
+			label7.AutoSize = true;
+			label7.Location = new Point(12, 176);
+			label7.Name = "label7";
+			label7.Size = new Size(86, 20);
+			label7.TabIndex = 16;
+			label7.Text = "Đơn Vị Tính";
 			// 
 			// cbbDonViTinh
 			// 
 			cbbDonViTinh.FormattingEnabled = true;
-			cbbDonViTinh.Location = new Point(116, 172);
+			cbbDonViTinh.Location = new Point(116, 173);
 			cbbDonViTinh.Name = "cbbDonViTinh";
 			cbbDonViTinh.Size = new Size(267, 28);
-			cbbDonViTinh.TabIndex = 16;
+			cbbDonViTinh.TabIndex = 17;
 			// 
 			// QuanLySanPhamForm
 			// 
@@ -238,7 +223,7 @@ namespace _25521963_BT03
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 638);
 			Controls.Add(cbbDonViTinh);
-			Controls.Add(label6);
+			Controls.Add(label7);
 			Controls.Add(dgvSanPham);
 			Controls.Add(btnTimKiem);
 			Controls.Add(btnSua);
@@ -280,11 +265,12 @@ namespace _25521963_BT03
 		private Button btnTimKiem;
 		private DataGridView dgvSanPham;
 		private Label label6;
-		private ComboBox cbbDonViTinh;
 		private DataGridViewTextBoxColumn MaSanPham;
 		private DataGridViewTextBoxColumn TenSanPham;
 		private DataGridViewTextBoxColumn SoLuong;
 		private DataGridViewTextBoxColumn DonGia;
 		private DataGridViewTextBoxColumn DonViTinh;
+		private Label label7;
+		private ComboBox cbbDonViTinh;
 	}
 }

@@ -14,6 +14,9 @@
 		public double DonGia { get => _donGia; set => _donGia = value; }
 		public string DonViTinh { get => _donViTinh; set => _donViTinh = value; }
 
+		public SanPham()
+		{
+		}
 		public SanPham(
 			string maSanPham,
 			string tenSanPham,

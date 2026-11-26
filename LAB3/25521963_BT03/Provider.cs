@@ -24,7 +24,7 @@ namespace _25521963_BT03
 			}
 		}
 
-		public void Disconnect()
+		public void DisConnect()
 		{
 			if (Connection != null && Connection.State == ConnectionState.Open)
 				Connection.Close();
@@ -51,9 +51,35 @@ namespace _25521963_BT03
 			}
 			finally
 			{
-				Disconnect();
+				DisConnect();
 			}
 			return dt;
 		}
+
+		public int ExecuteNonQuery(CommandType commandType, string sqISQL, params SqlParameter[] parameters)
+		{
+			int nRow = 0;
+			try
+			{
+				Connect();
+				SqlCommand cmd = Connection.CreateCommand();
+				cmd.CommandType = commandType;
+				cmd.CommandText = sqISQL;
+
+				if (parameters != null && parameters.Length > 0)
+					cmd.Parameters.AddRange(parameters);
+				nRow = cmd.ExecuteNonQuery();
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			finally
+			{
+				DisConnect();
+			}
+			return nRow;
+		}
+
 	}
-}
+	}
