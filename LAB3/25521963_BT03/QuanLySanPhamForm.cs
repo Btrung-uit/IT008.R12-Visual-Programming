@@ -14,7 +14,7 @@ namespace _25521963_BT03
 			StartPosition = FormStartPosition.CenterScreen;
 		}
 
-		public SanPham LayDuLieuTuManHinh()
+		public SanPham LayDuLieuManHinh()
 		{
 			SanPham sp = new SanPham();
 			sp.MaSanPham = tbMaSanPham.Text;
@@ -59,6 +59,8 @@ namespace _25521963_BT03
 			tbMaSanPham.Text = "SP" + maSPMoi.ToString("D3");
 
 			GanDuLieuManHinh(null);
+			spChon = null;
+			dgvSanPham.ClearSelection();
 		}
 		private void QuanLySanPhamForm_Load(object sender, EventArgs e)
 		{
@@ -70,17 +72,6 @@ namespace _25521963_BT03
 			{
 				Debug.WriteLine(ex.ToString());
 			}
-		}
-
-		public SanPham LayDuLieuManHinh()
-		{
-			SanPham sp = new SanPham();
-			sp.MaSanPham = tbMaSanPham.Text;
-			sp.TenSanPham = tbTenSanPham.Text;
-			sp.SoLuong = Convert.ToInt32(tbSoLuong.Text);
-			sp.DonGia = Convert.ToDouble(tbDonGia.Text);
-			sp.DonViTinh = (string)cbbDonViTinh.SelectedItem;
-			return sp;
 		}
 
 		private void btnThem_Click(object sender, EventArgs e)
@@ -119,7 +110,7 @@ namespace _25521963_BT03
 
 		private void btnXoa_Click(object sender, EventArgs e)
 		{
-			if(spChon == null)
+			if (spChon == null)
 				return;
 			try
 			{
@@ -130,6 +121,46 @@ namespace _25521963_BT03
 					MessageBox.Show("Xóa thành công!");
 					HienThiDuLieuManHinh();
 				}
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.ToString());
+			}
+		}
+
+		private void btnSua_Click(object sender, EventArgs e)
+		{
+			if (spChon == null)
+			{
+				MessageBox.Show("Hãy chọn sản phẩm.");
+				return;
+			}
+
+			try
+			{
+				SanPham sp = LayDuLieuManHinh();
+				QuanLySanPham QLSP = new QuanLySanPham();
+				int kq = QLSP.SuaSanPham(sp);
+				if (kq > 0)
+				{
+					MessageBox.Show("Sửa thành công!");
+					HienThiDuLieuManHinh();
+				}
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.ToString());
+			}
+		}
+
+		private void btnTimKiem_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				string TenSP = tbTimKiem.Text.Trim();
+				QuanLySanPham QLSP = new QuanLySanPham();
+				DataTable dt = QLSP.TimKiemSanPham(TenSP);
+				dgvSanPham = dt;
 			}
 			catch (Exception ex)
 			{

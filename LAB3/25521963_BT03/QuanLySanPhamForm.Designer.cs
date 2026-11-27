@@ -52,10 +52,12 @@ namespace _25521963_BT03
 			// 
 			// label1
 			// 
-			label1.Location = new Point(0, 0);
+			label1.Font = new Font("Segoe UI", 15F);
+			label1.Location = new Point(276, 30);
 			label1.Name = "label1";
-			label1.Size = new Size(100, 23);
+			label1.Size = new Size(241, 39);
 			label1.TabIndex = 15;
+			label1.Text = "Quản Lý Sản Phẩm";
 			// 
 			// label2
 			// 
@@ -158,6 +160,7 @@ namespace _25521963_BT03
 			btnSua.TabIndex = 12;
 			btnSua.Text = "Sửa";
 			btnSua.UseVisualStyleBackColor = true;
+			btnSua.Click += btnSua_Click;
 			// 
 			// btnTimKiem
 			// 
@@ -167,6 +170,7 @@ namespace _25521963_BT03
 			btnTimKiem.TabIndex = 13;
 			btnTimKiem.Text = "Tìm kiếm";
 			btnTimKiem.UseVisualStyleBackColor = true;
+			btnTimKiem.Click += btnTimKiem_Click;
 			// 
 			// dgvSanPham
 			// 

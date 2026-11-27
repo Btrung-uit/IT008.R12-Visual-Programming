@@ -67,7 +67,7 @@ namespace _25521963_BT03
 
 			try
 			{
-				string strSQL = "UPDATE dbo.SanPham SET TenSanPham = @TenSanPham, SoLuong = @SoLuong, DonGia = @DonGia, DonViTinh = @DonViTinh)";
+				string strSQL = "UPDATE dbo.SanPham SET TenSanPham = @TenSanPham, SoLuong = @SoLuong, DonGia = @DonGia, DonViTinh = @DonViTinh WHERE MaSanPham = @MaSanPham";
 				Provider p = new Provider();
 				int nRow = p.ExecuteNonQuery(CommandType.Text, strSQL,
 					new SqlParameter { ParameterName = "@MaSanPham", Value = sp.MaSanPham },
@@ -76,6 +76,24 @@ namespace _25521963_BT03
 					new SqlParameter { ParameterName = "@SoLuong", Value = sp.SoLuong },
 					new SqlParameter { ParameterName = "@DonViTinh", Value = sp.DonViTinh });
 				return nRow;
+
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+		}
+
+		public DataTable TimKiemSanPham(string TenSP)
+		{
+			try
+			{
+				string strSQL = "SELECT * FROM dbo.SanPham WHERE TenSanPham LIKE %@TenSanPham%";
+				Provider p = new Provider();
+				DataTable dt = p.Select(CommandType.Text, strSQL
+					new SqlParameter {ParameterName = "@TenSanPham", Value = TenSP}
+					);
+				return dt;
 
 			}
 			catch (Exception)
