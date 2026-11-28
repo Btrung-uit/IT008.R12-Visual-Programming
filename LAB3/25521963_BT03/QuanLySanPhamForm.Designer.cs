@@ -43,10 +43,13 @@ namespace _25521963_BT03
 			btnSua = new Button();
 			btnTimKiem = new Button();
 			dgvSanPham = new DataGridView();
-			MaSanPham = new DataGridViewTextBoxColumn();
-			TenSanPham = new DataGridViewTextBoxColumn();
 			label7 = new Label();
 			cbbDonViTinh = new ComboBox();
+			MaSanPham = new DataGridViewTextBoxColumn();
+			TenSanPham = new DataGridViewTextBoxColumn();
+			SoLuong = new DataGridViewTextBoxColumn();
+			DonGia = new DataGridViewTextBoxColumn();
+			DonViTinh = new DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)dgvSanPham).BeginInit();
 			SuspendLayout();
 			// 
@@ -178,7 +181,7 @@ namespace _25521963_BT03
 			dgvSanPham.AllowUserToDeleteRows = false;
 			dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dgvSanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dgvSanPham.Columns.AddRange(new DataGridViewColumn[] { MaSanPham, TenSanPham });
+			dgvSanPham.Columns.AddRange(new DataGridViewColumn[] { MaSanPham, TenSanPham, SoLuong, DonGia, DonViTinh });
 			dgvSanPham.Location = new Point(12, 243);
 			dgvSanPham.Name = "dgvSanPham";
 			dgvSanPham.ReadOnly = true;
@@ -187,22 +190,6 @@ namespace _25521963_BT03
 			dgvSanPham.Size = new Size(776, 383);
 			dgvSanPham.TabIndex = 14;
 			dgvSanPham.CellClick += dgvSanPham_CellClick;
-			// 
-			// MaSanPham
-			// 
-			MaSanPham.DataPropertyName = "MaSanPham";
-			MaSanPham.HeaderText = "Mã Sản Phẩm";
-			MaSanPham.MinimumWidth = 6;
-			MaSanPham.Name = "MaSanPham";
-			MaSanPham.ReadOnly = true;
-			// 
-			// TenSanPham
-			// 
-			TenSanPham.DataPropertyName = "TenSanPham";
-			TenSanPham.HeaderText = "Tên Sản Phẩm";
-			TenSanPham.MinimumWidth = 6;
-			TenSanPham.Name = "TenSanPham";
-			TenSanPham.ReadOnly = true;
 			// 
 			// label7
 			// 
@@ -220,6 +207,46 @@ namespace _25521963_BT03
 			cbbDonViTinh.Name = "cbbDonViTinh";
 			cbbDonViTinh.Size = new Size(267, 28);
 			cbbDonViTinh.TabIndex = 17;
+			// 
+			// MaSanPham
+			// 
+			MaSanPham.DataPropertyName = "MaSanPham";
+			MaSanPham.HeaderText = "Mã Sản Phẩm";
+			MaSanPham.MinimumWidth = 6;
+			MaSanPham.Name = "MaSanPham";
+			MaSanPham.ReadOnly = true;
+			// 
+			// TenSanPham
+			// 
+			TenSanPham.DataPropertyName = "TenSanPham";
+			TenSanPham.HeaderText = "Tên Sản Phẩm";
+			TenSanPham.MinimumWidth = 6;
+			TenSanPham.Name = "TenSanPham";
+			TenSanPham.ReadOnly = true;
+			// 
+			// SoLuong
+			// 
+			SoLuong.DataPropertyName = "SoLuong";
+			SoLuong.HeaderText = "Số Lượng";
+			SoLuong.MinimumWidth = 6;
+			SoLuong.Name = "SoLuong";
+			SoLuong.ReadOnly = true;
+			// 
+			// DonGia
+			// 
+			DonGia.DataPropertyName = "DonGia";
+			DonGia.HeaderText = "Đơn Giá";
+			DonGia.MinimumWidth = 6;
+			DonGia.Name = "DonGia";
+			DonGia.ReadOnly = true;
+			// 
+			// DonViTinh
+			// 
+			DonViTinh.DataPropertyName = "DonViTinh";
+			DonViTinh.HeaderText = "Đơn Vị Tính";
+			DonViTinh.MinimumWidth = 6;
+			DonViTinh.Name = "DonViTinh";
+			DonViTinh.ReadOnly = true;
 			// 
 			// QuanLySanPhamForm
 			// 
@@ -269,12 +296,12 @@ namespace _25521963_BT03
 		private Button btnTimKiem;
 		private DataGridView dgvSanPham;
 		private Label label6;
+		private Label label7;
+		private ComboBox cbbDonViTinh;
 		private DataGridViewTextBoxColumn MaSanPham;
 		private DataGridViewTextBoxColumn TenSanPham;
 		private DataGridViewTextBoxColumn SoLuong;
 		private DataGridViewTextBoxColumn DonGia;
 		private DataGridViewTextBoxColumn DonViTinh;
-		private Label label7;
-		private ComboBox cbbDonViTinh;
 	}
 }

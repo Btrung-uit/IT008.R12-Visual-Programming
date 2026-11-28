@@ -18,7 +18,7 @@ namespace _25521963_BT03
 					Connection.Close();
 				Connection.Open();
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				throw;
 			}
@@ -45,7 +45,7 @@ namespace _25521963_BT03
 				SqlDataAdapter da = new SqlDataAdapter(cmd);
 				da.Fill(dt);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				throw;
 			}

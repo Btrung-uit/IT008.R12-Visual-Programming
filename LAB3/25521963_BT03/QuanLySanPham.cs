@@ -1,5 +1,6 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 
 namespace _25521963_BT03
 {
@@ -15,18 +16,18 @@ namespace _25521963_BT03
 				return dt;
 
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				throw;
 			}
 		}
-
 		public int ThemSanPham(SanPham sp)
 		{
 
 			try
 			{
-				string strSQL = "INSERT INTO dbo.SanPham VALUES(@MaSanPham, @TenSanPham, @SoLuong, @DonGia, @DonViTinh)";
+				string strSQL = "INSERT INTO dbo.SanPham (MaSanPham, TenSanPham, SoLuong, DonGia, DonViTinh)" +
+								"VALUES (@MaSanPham, @TenSanPham, @SoLuong, @DonGia, @DonViTinh)";
 				Provider p = new Provider();
 				int nRow = p.ExecuteNonQuery(CommandType.Text, strSQL,
 					new SqlParameter { ParameterName = "@MaSanPham", Value = sp.MaSanPham },
@@ -88,9 +89,9 @@ namespace _25521963_BT03
 		{
 			try
 			{
-				string strSQL = "SELECT * FROM dbo.SanPham WHERE TenSanPham LIKE %@TenSanPham%";
+				string strSQL = "SELECT * FROM dbo.SanPham WHERE TenSanPham LIKE N'%' + @TenSanPham + N'%'";
 				Provider p = new Provider();
-				DataTable dt = p.Select(CommandType.Text, strSQL
+				DataTable dt = p.Select(CommandType.Text, strSQL,
 					new SqlParameter {ParameterName = "@TenSanPham", Value = TenSP}
 					);
 				return dt;
